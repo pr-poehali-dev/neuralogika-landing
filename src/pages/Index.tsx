@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import Icon from '@/components/ui/icon';
+
+const SEND_LEAD_URL = 'https://functions.poehali.dev/20209a8a-b986-41eb-8cd2-2e7f2f10f392';
 
 const HERO_IMG = "https://cdn.poehali.dev/projects/610fe54d-520f-45a9-a3a6-51d41a25ad48/files/5615bd25-5f58-4a70-8719-2b7499d34eb5.jpg";
 const TEAM_IMG = "https://cdn.poehali.dev/projects/610fe54d-520f-45a9-a3a6-51d41a25ad48/files/34588791-3fbc-4320-8808-391f1433cbd4.jpg";
@@ -81,6 +84,31 @@ const advantages = [
 ];
 
 export default function Index() {
+  const [name, setName] = useState('');
+  const [contact, setContact] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async () => {
+    if (!name.trim() || !contact.trim()) return;
+    setStatus('loading');
+    try {
+      const res = await fetch(SEND_LEAD_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, contact }),
+      });
+      if (res.ok) {
+        setStatus('success');
+        setName('');
+        setContact('');
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  };
+
   return (
     <div className="min-h-screen" style={{ fontFamily: "'Golos Text', sans-serif", background: 'var(--navy)', color: 'var(--white)' }}>
 
@@ -341,28 +369,52 @@ export default function Index() {
                 и примерный ROI ещё до старта проекта.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3">
-                <input
-                  type="text"
-                  placeholder="Ваше имя"
-                  className="flex-1 px-5 py-4 rounded-xl text-base outline-none"
-                  style={{ background: 'var(--navy)', border: '1px solid var(--border)', color: 'var(--white)' }}
-                />
-                <input
-                  type="tel"
-                  placeholder="Телефон или email"
-                  className="flex-1 px-5 py-4 rounded-xl text-base outline-none"
-                  style={{ background: 'var(--navy)', border: '1px solid var(--border)', color: 'var(--white)' }}
-                />
-                <button
-                  className="px-8 py-4 rounded-xl text-base font-semibold transition-all duration-200 whitespace-nowrap"
-                  style={{ background: 'var(--teal)', color: 'var(--navy)' }}>
-                  Получить аудит
-                </button>
-              </div>
-              <p className="text-xs mt-4" style={{ color: 'var(--graphite)' }}>
-                Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности. Не спамим.
-              </p>
+              {status === 'success' ? (
+                <div className="flex items-center gap-3 p-5 rounded-xl"
+                  style={{ background: 'rgba(29,233,182,0.1)', border: '1px solid rgba(29,233,182,0.3)' }}>
+                  <Icon name="CheckCircle" size={24} style={{ color: 'var(--teal)' }} />
+                  <div>
+                    <div className="font-semibold" style={{ color: 'var(--white)' }}>Заявка отправлена!</div>
+                    <div className="text-sm mt-0.5" style={{ color: 'var(--graphite)' }}>Свяжемся с вами в течение рабочего дня.</div>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <input
+                      type="text"
+                      placeholder="Ваше имя"
+                      value={name}
+                      onChange={e => setName(e.target.value)}
+                      className="flex-1 px-5 py-4 rounded-xl text-base outline-none"
+                      style={{ background: 'var(--navy)', border: '1px solid var(--border)', color: 'var(--white)' }}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Телефон или email"
+                      value={contact}
+                      onChange={e => setContact(e.target.value)}
+                      className="flex-1 px-5 py-4 rounded-xl text-base outline-none"
+                      style={{ background: 'var(--navy)', border: '1px solid var(--border)', color: 'var(--white)' }}
+                    />
+                    <button
+                      onClick={handleSubmit}
+                      disabled={status === 'loading' || !name.trim() || !contact.trim()}
+                      className="px-8 py-4 rounded-xl text-base font-semibold transition-all duration-200 whitespace-nowrap disabled:opacity-50"
+                      style={{ background: 'var(--teal)', color: 'var(--navy)' }}>
+                      {status === 'loading' ? 'Отправляем...' : 'Получить аудит'}
+                    </button>
+                  </div>
+                  {status === 'error' && (
+                    <p className="text-xs mt-2" style={{ color: '#ff6b6b' }}>
+                      Ошибка отправки. Попробуйте ещё раз или напишите напрямую на unirek.msk@ya.ru
+                    </p>
+                  )}
+                  <p className="text-xs mt-4" style={{ color: 'var(--graphite)' }}>
+                    Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности. Не спамим.
+                  </p>
+                </>
+              )}
             </div>
           </div>
         </div>
