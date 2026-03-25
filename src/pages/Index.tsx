@@ -173,7 +173,7 @@ export default function Index() {
           <span className="font-bold text-lg tracking-tight" style={{ color: 'var(--white)' }}>НейроЛогика</span>
         </div>
         <div className="hidden md:flex items-center gap-8 text-sm" style={{ color: 'var(--graphite)' }}>
-          {[['#about', 'О компании'], ['#services', 'Услуги'], ['#cases', 'Кейсы'], ['#advantages', 'Преимущества']].map(([href, label]) => (
+          {[['#about', 'О компании'], ['#services', 'Услуги'], ['#cases', 'Кейсы'], ['#advantages', 'Преимущества'], ['#faq', 'FAQ']].map(([href, label]) => (
             <a key={href} href={href} className="transition-colors hover:text-white" style={{ color: 'var(--graphite)' }}
               onMouseEnter={e => (e.currentTarget.style.color = 'var(--teal)')}
               onMouseLeave={e => (e.currentTarget.style.color = 'var(--graphite)')}>
