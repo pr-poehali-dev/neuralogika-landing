@@ -91,6 +91,12 @@ const cases = [
     desc: "Автоматизировали ввод данных из бумажных накладных в 1С. Полностью убрали ручной ввод.",
     duration: "2 месяца",
   },
+  {
+    industry: "Мессенджер Max",
+    result: "+12 000 подписчиков",
+    desc: "Перенесли аудиторию бренда из Telegram в Max, запустили умного бота для обработки заявок и мини-приложение каталога товаров.",
+    duration: "5 недель",
+  },
 ];
 
 const advantages = [
@@ -317,24 +323,21 @@ export default function Index() {
             <h2 className="text-3xl md:text-5xl font-black leading-tight" style={{ color: 'var(--white)' }}>
               Что мы делаем
             </h2>
-            <p className="mt-4 text-base max-w-xl mx-auto" style={{ color: 'var(--graphite)' }}>
-              Пять направлений работы — каждое с измеримым результатом для вашего бизнеса
-            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {services.map((s) => (
               <div key={s.title}
-                className="card-hover p-7 rounded-2xl"
+                className="card-hover p-7 rounded-2xl flex flex-col"
                 style={{ background: 'var(--navy-light)', border: '1px solid var(--border)' }}>
                 <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
                   style={{ background: 'rgba(29,233,182,0.1)', border: '1px solid rgba(29,233,182,0.2)' }}>
                   <Icon name={s.icon} fallback="Sparkles" size={20} style={{ color: 'var(--teal)' }} />
                 </div>
                 <h3 className="text-lg font-bold mb-3" style={{ color: 'var(--white)' }}>{s.title}</h3>
-                <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--graphite)' }}>{s.desc}</p>
-                <div className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full"
-                  style={{ background: 'rgba(29,233,182,0.1)', color: 'var(--teal)', fontFamily: "'IBM Plex Mono', monospace" }}>
+                <p className="text-sm leading-relaxed flex-1" style={{ color: 'var(--graphite)' }}>{s.desc}</p>
+                <div className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full mt-5"
+                  style={{ background: 'rgba(29,233,182,0.1)', color: 'var(--teal)', fontFamily: "'IBM Plex Mono', monospace", alignSelf: 'flex-start' }}>
                   <Icon name="TrendingUp" size={12} />
                   {s.metric}
                 </div>
