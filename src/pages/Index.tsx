@@ -1,6 +1,33 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 
+const faqs = [
+  {
+    q: "Нам нужен большой бюджет на ИИ?",
+    a: "Нет. Большинство наших проектов для МСБ стартуют от 150–300 тыс. рублей. Мы начинаем с одной точки автоматизации — там, где ROI очевиден. Сначала окупаем, потом масштабируем.",
+  },
+  {
+    q: "Как долго длится внедрение?",
+    a: "Первый рабочий прототип — 2–4 недели. Полноценное внедрение с обучением и интеграцией в процессы — 1–3 месяца. Не растягиваем проекты намеренно.",
+  },
+  {
+    q: "У нас нет IT-отдела. Справимся?",
+    a: "Да. Мы берём на себя всё техническое: разработку, интеграцию, обучение сотрудников и дальнейшую поддержку. Ваша команда работает с готовым инструментом, как с обычной программой.",
+  },
+  {
+    q: "Наши данные не утекут к конкурентам?",
+    a: "Все решения разворачиваются на вашей инфраструктуре или в изолированном контуре. Данные не используются для обучения сторонних моделей. Подписываем NDA до начала работ.",
+  },
+  {
+    q: "Как понять, что ИИ вообще нужен нашему бизнесу?",
+    a: "Именно для этого мы проводим бесплатный аудит на 30 минут. Разбираем ваши процессы, показываем конкретные точки автоматизации и считаем примерный ROI. Без обязательств.",
+  },
+  {
+    q: "Что если результат не оправдает ожидания?",
+    a: "Мы фиксируем KPI в договоре до старта. Если показатели не достигнуты — дорабатываем за свой счёт. Работаем на результат, а не на процесс.",
+  },
+];
+
 const SEND_LEAD_URL = 'https://functions.poehali.dev/20209a8a-b986-41eb-8cd2-2e7f2f10f392';
 
 const HERO_IMG = "https://cdn.poehali.dev/projects/610fe54d-520f-45a9-a3a6-51d41a25ad48/files/5615bd25-5f58-4a70-8719-2b7499d34eb5.jpg";
@@ -82,6 +109,30 @@ const advantages = [
     desc: "Ведём проект после сдачи: мониторинг, обновления, дообучение моделей под изменения рынка.",
   },
 ];
+
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div
+      className="rounded-2xl overflow-hidden cursor-pointer"
+      style={{ background: 'var(--navy-light)', border: `1px solid ${open ? 'rgba(29,233,182,0.3)' : 'var(--border)'}`, transition: 'border-color 0.2s' }}
+      onClick={() => setOpen(!open)}
+    >
+      <div className="flex items-center justify-between gap-4 px-7 py-5">
+        <span className="text-base font-semibold" style={{ color: 'var(--white)' }}>{q}</span>
+        <div className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200"
+          style={{ background: open ? 'rgba(29,233,182,0.15)' : 'rgba(255,255,255,0.05)', transform: open ? 'rotate(45deg)' : 'rotate(0deg)' }}>
+          <Icon name="Plus" size={16} style={{ color: open ? 'var(--teal)' : 'var(--graphite)' }} />
+        </div>
+      </div>
+      {open && (
+        <div className="px-7 pb-6">
+          <p className="text-sm leading-relaxed" style={{ color: 'var(--graphite)' }}>{a}</p>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Index() {
   const [name, setName] = useState('');
@@ -346,6 +397,24 @@ export default function Index() {
                   <p className="text-sm leading-relaxed" style={{ color: 'var(--graphite)' }}>{a.desc}</p>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section id="faq" className="py-24 md:py-32" style={{ background: 'var(--navy-mid)' }}>
+        <div className="max-w-4xl mx-auto px-6 md:px-12">
+          <div className="text-center mb-16">
+            <div className="text-xs mb-4 tracking-widest uppercase" style={{ color: 'var(--teal)', fontFamily: "'IBM Plex Mono', monospace" }}>FAQ</div>
+            <h2 className="text-3xl md:text-5xl font-black leading-tight" style={{ color: 'var(--white)' }}>
+              Частые вопросы
+            </h2>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            {faqs.map((item) => (
+              <FaqItem key={item.q} q={item.q} a={item.a} />
             ))}
           </div>
         </div>
