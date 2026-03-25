@@ -305,7 +305,7 @@ export default function Index() {
 
               <div className="mt-10 grid grid-cols-2 gap-4">
                 {[
-                  { num: "5 лет", label: "опыта в ИИ-проектах" },
+                  { num: "2 года", label: "опыта в ИИ-проектах" },
                   { num: "12", label: "отраслей в портфолио" },
                   { num: "92%", label: "клиентов возвращаются" },
                   { num: "1–4 нед.", label: "до рабочего прототипа" },
