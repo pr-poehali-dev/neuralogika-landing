@@ -23,6 +23,7 @@ def handler(event: dict, context) -> dict:
     body = json.loads(event.get('body') or '{}')
     name = body.get('name', '').strip()
     contact = body.get('contact', '').strip()
+    message = body.get('message', '').strip()
 
     if not name or not contact:
         return {
@@ -55,6 +56,10 @@ def handler(event: dict, context) -> dict:
             <td style="padding: 10px 0; color: #8494b0; font-size: 13px;">Контакт</td>
             <td style="padding: 10px 0; color: #f0f4fc; font-size: 15px; font-weight: bold;">{contact}</td>
           </tr>
+          {f'''<tr style="border-top: 1px solid #1a2540;">
+            <td style="padding: 10px 0; color: #8494b0; font-size: 13px; vertical-align: top;">Задача</td>
+            <td style="padding: 10px 0; color: #f0f4fc; font-size: 15px; line-height: 1.5;">{message}</td>
+          </tr>''' if message else ''}
         </table>
         <div style="margin-top: 24px; padding: 16px; background: rgba(29,233,182,0.08); border-radius: 8px; border: 1px solid rgba(29,233,182,0.2);">
           <p style="color: #1de9b6; margin: 0; font-size: 13px;">

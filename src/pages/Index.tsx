@@ -165,6 +165,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 export default function Index() {
   const [name, setName] = useState('');
   const [contact, setContact] = useState('');
+  const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const handleSubmit = async () => {
@@ -174,12 +175,13 @@ export default function Index() {
       const res = await fetch(SEND_LEAD_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, contact }),
+        body: JSON.stringify({ name, contact, message }),
       });
       if (res.ok) {
         setStatus('success');
         setName('');
         setContact('');
+        setMessage('');
       } else {
         setStatus('error');
       }
@@ -474,10 +476,10 @@ export default function Index() {
                 </div>
               ) : (
                 <>
-                  <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="flex flex-col sm:flex-row gap-3 mb-3">
                     <input
                       type="text"
-                      placeholder="Ваше имя"
+                      placeholder="Ваше имя *"
                       value={name}
                       onChange={e => setName(e.target.value)}
                       className="flex-1 px-5 py-4 rounded-xl text-base outline-none"
@@ -485,16 +487,26 @@ export default function Index() {
                     />
                     <input
                       type="text"
-                      placeholder="Телефон или email"
+                      placeholder="Телефон или email *"
                       value={contact}
                       onChange={e => setContact(e.target.value)}
                       className="flex-1 px-5 py-4 rounded-xl text-base outline-none"
                       style={{ background: 'var(--navy)', border: '1px solid var(--border)', color: 'var(--white)' }}
                     />
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <textarea
+                      placeholder="Опишите вашу задачу (необязательно)"
+                      value={message}
+                      onChange={e => setMessage(e.target.value)}
+                      rows={3}
+                      className="flex-1 px-5 py-4 rounded-xl text-base outline-none resize-none"
+                      style={{ background: 'var(--navy)', border: '1px solid var(--border)', color: 'var(--white)' }}
+                    />
                     <button
                       onClick={handleSubmit}
                       disabled={status === 'loading' || !name.trim() || !contact.trim()}
-                      className="px-8 py-4 rounded-xl text-base font-semibold transition-all duration-200 whitespace-nowrap disabled:opacity-50"
+                      className="px-8 py-4 rounded-xl text-base font-semibold transition-all duration-200 whitespace-nowrap disabled:opacity-50 self-end"
                       style={{ background: 'var(--teal)', color: 'var(--navy)' }}>
                       {status === 'loading' ? 'Отправляем...' : 'Получить аудит'}
                     </button>
