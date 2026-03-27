@@ -32,9 +32,9 @@ def handler(event: dict, context) -> dict:
             'body': json.dumps({'error': 'Заполните имя и контакт'}, ensure_ascii=False)
         }
 
-    smtp_user = 'unirek.msk@ya.ru'
+    smtp_user = os.environ['SMTP_USER']
     smtp_password = os.environ['SMTP_PASSWORD']
-    to_email = 'unirek.msk@ya.ru'
+    to_email = os.environ['SMTP_USER']
 
     msg = MIMEMultipart('alternative')
     msg['Subject'] = f'Новая заявка с сайта НейроЛогика — {name}'
