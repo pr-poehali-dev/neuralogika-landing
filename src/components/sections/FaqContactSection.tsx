@@ -64,8 +64,33 @@ export default function FaqContactSection() {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
+  const formatPhone = (value: string) => {
+    const digits = value.replace(/\D/g, '');
+    let normalized = digits;
+    if (normalized.startsWith('8')) normalized = '7' + normalized.slice(1);
+    if (!normalized.startsWith('7')) normalized = '7' + normalized;
+    const d = normalized.slice(1, 11);
+    let result = '+7';
+    if (d.length > 0) result += ' (' + d.slice(0, 3);
+    if (d.length >= 3) result += ') ' + d.slice(3, 6);
+    if (d.length >= 6) result += '-' + d.slice(6, 8);
+    if (d.length >= 8) result += '-' + d.slice(8, 10);
+    return result;
+  };
+
+  const isPhoneValid = (value: string) => {
+    const digits = value.replace(/\D/g, '');
+    return digits.length === 11 && (digits.startsWith('7') || digits.startsWith('8'));
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value;
+    if (raw === '' || raw === '+') { setContact(''); return; }
+    setContact(formatPhone(raw));
+  };
+
   const handleSubmit = async () => {
-    if (!name.trim() || !contact.trim()) return;
+    if (!name.trim() || !isPhoneValid(contact)) return;
     setStatus('loading');
     try {
       const res = await fetch(SEND_LEAD_URL, {
@@ -145,12 +170,12 @@ export default function FaqContactSection() {
                       style={{ background: 'var(--navy)', border: '1px solid var(--border)', color: 'var(--white)' }}
                     />
                     <input
-                      type="text"
-                      placeholder="Телефон или email *"
+                      type="tel"
+                      placeholder="Телефон *"
                       value={contact}
-                      onChange={e => setContact(e.target.value)}
+                      onChange={handlePhoneChange}
                       className="flex-1 px-5 py-4 rounded-xl text-base outline-none"
-                      style={{ background: 'var(--navy)', border: '1px solid var(--border)', color: 'var(--white)' }}
+                      style={{ background: 'var(--navy)', border: `1px solid ${contact && !isPhoneValid(contact) ? '#ff6b6b' : 'var(--border)'}`, color: 'var(--white)' }}
                     />
                   </div>
                   <div className="flex flex-col sm:flex-row gap-3">
@@ -164,7 +189,7 @@ export default function FaqContactSection() {
                     />
                     <button
                       onClick={handleSubmit}
-                      disabled={status === 'loading' || !name.trim() || !contact.trim()}
+                      disabled={status === 'loading' || !name.trim() || !isPhoneValid(contact)}
                       className="px-8 py-4 rounded-xl text-base font-semibold transition-all duration-200 whitespace-nowrap disabled:opacity-50 self-end"
                       style={{ background: 'var(--teal)', color: 'var(--navy)' }}>
                       {status === 'loading' ? 'Отправляем...' : 'Получить аудит'}
