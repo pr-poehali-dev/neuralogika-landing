@@ -74,7 +74,20 @@
 <body>
 <div id="root"></div>
 <script type="module" src="/src/main.tsx"></script>
-<script async src="https://timeweb.cloud/api/v1/cloud-ai/agents/a269a55e-5742-43d2-ac13-3809e04d954f/embed.js?collapsed=false"></script>
+<script async src="https://timeweb.cloud/api/v1/cloud-ai/agents/a269a55e-5742-43d2-ac13-3809e04d954f/embed.js?collapsed=true"></script>
+<script>
+setTimeout(function() {
+    var fns = ['open', 'show', 'toggle', 'expand', 'openChat', 'showChat'];
+    var objs = ['Timeweb', 'TimewebChat', 'CloudAI', 'twChat', 'chatWidget'];
+    for (var o of objs) {
+        for (var f of fns) {
+            try { if (window[o] && typeof window[o][f] === 'function') { window[o][f](); return; } } catch(e) {}
+        }
+    }
+    var btn = document.querySelector('[class*="chat"] button, [id*="chat"] button, [class*="widget"] button');
+    if (btn) btn.click();
+}, 3000);
+</script>
 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
