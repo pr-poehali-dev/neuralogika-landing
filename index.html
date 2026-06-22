@@ -79,24 +79,20 @@
 var _twOpened = false;
 var _twInterval = setInterval(function() {
     if (_twOpened) { clearInterval(_twInterval); return; }
-    var selectors = [
-        'iframe[src*="timeweb"]',
-        '[id*="timeweb"]',
-        '[class*="timeweb"]',
-        '[id*="chat-widget"]',
-        '[class*="chat-widget"]',
-        '[id*="ai-chat"]',
-        '[class*="ai-chat"]'
-    ];
-    for (var s of selectors) {
-        var el = document.querySelector(s);
-        if (el) {
-            var btn = el.tagName === 'IFRAME' ? null : el.querySelector('button');
-            if (!btn) btn = el;
-            btn.click();
-            _twOpened = true;
-            clearInterval(_twInterval);
-            return;
+    var fns = ['open', 'show', 'toggle', 'expand', 'openChat', 'showChat', 'openWidget'];
+    var objs = ['AgentWidget', 'AgentChatWidget', 'Timeweb', 'TimewebChat', 'twChat'];
+    for (var o of objs) {
+        if (window[o]) {
+            for (var f of fns) {
+                try {
+                    if (typeof window[o][f] === 'function') {
+                        window[o][f]();
+                        _twOpened = true;
+                        clearInterval(_twInterval);
+                        return;
+                    }
+                } catch(e) {}
+            }
         }
     }
     var allBtns = document.querySelectorAll('button');
