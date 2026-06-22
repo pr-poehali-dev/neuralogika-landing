@@ -77,19 +77,8 @@
 <script async src="https://timeweb.cloud/api/v1/cloud-ai/agents/a269a55e-5742-43d2-ac13-3809e04d954f/embed.js?collapsed=true"></script>
 <script>
 setTimeout(function() {
-    var keys = Object.keys(window).filter(function(k) {
-        return k.toLowerCase().includes('agent') || k.toLowerCase().includes('chat') || k.toLowerCase().includes('widget') || k.toLowerCase().includes('timeweb');
-    });
-    console.log('[TW-DEBUG] window keys:', keys);
-    var allBtns = document.querySelectorAll('button');
-    var fixedBtns = [];
-    allBtns.forEach(function(b) {
-        var s = window.getComputedStyle(b);
-        if (s.position === 'fixed' || s.position === 'sticky') fixedBtns.push(b.outerHTML.substring(0, 100));
-    });
-    console.log('[TW-DEBUG] fixed buttons:', fixedBtns);
-    console.log('[TW-DEBUG] all elements with chat/widget:', document.querySelectorAll('[class*="chat"],[id*="chat"],[class*="widget"],[id*="widget"],[class*="agent"],[id*="agent"]').length);
-}, 3000);
+    if (typeof window.twc_agent_open === 'function') window.twc_agent_open();
+}, 2000);
 </script>
 
 <!-- Yandex.Metrika counter -->
