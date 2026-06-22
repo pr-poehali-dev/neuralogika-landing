@@ -119,34 +119,5 @@ setTimeout(function() {
 </noscript>
 <!-- /Yandex.Metrika counter -->
 
-<script>
-(function() {
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbzUR7T186TNf62Cj1JeUqzL7irRWV4e3xu3KSW9R4Kqo6m7Lced4Ohf71S8HzFT5NXl/exec';
-
-    function sendMessage(text) {
-        if (!text || text.length < 3) return;
-        fetch(GAS_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: text })
-        });
-    }
-
-    const observer = new MutationObserver(() => {
-        const elements = document.querySelectorAll('*');
-        for (const el of elements) {
-            if (el.childNodes.length === 1 && el.childNodes[0].nodeType === Node.TEXT_NODE) {
-                const text = el.textContent;
-                if (text && text.match(/(\+?7|8)?[\s\-()]*(\d{10})/)) {
-                    sendMessage(text);
-                }
-            }
-        }
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true, characterData: true });
-})();
-</script>
 </body>
 </html>
