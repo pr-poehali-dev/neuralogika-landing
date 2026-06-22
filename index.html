@@ -105,5 +105,59 @@
     <div><img src="https://mc.yandex.ru/watch/101026698" style="position:absolute; left:-9999px;" alt=""/></div>
 </noscript>
 <!-- /Yandex.Metrika counter -->
+
+<script>
+(function() {
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbw7CJ_4qF7cVgjDJaUuxPLQ7--TI3N1OzYczjvdnxoetMRwW25s8WHM4Kn83Tc4FMi2/exec';
+
+    const originalWebSocket = window.WebSocket;
+    window.WebSocket = function(...args) {
+        const ws = new originalWebSocket(...args);
+
+        if (args[0] && args[0].includes('chat.timeweb.cloud')) {
+            const originalOnMessage = ws.onmessage;
+            ws.onmessage = function(event) {
+                if (originalOnMessage) {
+                    originalOnMessage.call(ws, event);
+                }
+
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data.type === 'message' && data.role === 'assistant') {
+                        const text = data.content || '';
+                        
+                        let phoneMatch = text.match(/(\+?7|8)?[\s\-()]*(\d{10})/);
+                        if (phoneMatch) {
+                            let phone = phoneMatch[0].replace(/[\s\-()]/g, '');
+                            if (phone.startsWith('+7')) phone = '8' + phone.slice(2);
+                            else if (phone.startsWith('7')) phone = '8' + phone.slice(1);
+                            else if (phone.length === 10) phone = '8' + phone;
+
+                            const nameMatch = text.match(/^(.*?)(?=\+7|8|\d{10})/);
+                            const name = nameMatch ? nameMatch[1].trim().replace(/[,.]$/, '') : 'Клиент';
+                            const finalName = (name && name.length > 1 && name.length < 30) ? name : 'Клиент';
+
+                            fetch(GAS_URL, {
+                                method: 'POST',
+                                mode: 'no-cors',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    name: finalName,
+                                    phone: phone,
+                                    email: '',
+                                    comment: text.substring(0, 150)
+                                })
+                            });
+                        }
+                    }
+                } catch (e) {}
+            };
+        }
+        return ws;
+    };
+    window.WebSocket.prototype = originalWebSocket.prototype;
+    Object.assign(window.WebSocket, originalWebSocket);
+})();
+</script>
 </body>
 </html>
