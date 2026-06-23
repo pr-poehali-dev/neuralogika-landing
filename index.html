@@ -81,6 +81,63 @@ setTimeout(function() {
 }, 2000);
 </script>
 
+<script>
+(function() {
+    var CHAT_LEAD_URL = 'https://functions.poehali.dev/9c54c53e-a76c-4341-87b8-46ddcecf3878';
+    var sentHashes = {};
+
+    function hashStr(s) {
+        var h = 0;
+        for (var i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
+        return h;
+    }
+
+    function tryExtractLead(text) {
+        var match = text.match(/\{[\s\S]*?"name"[\s\S]*?\}/);
+        if (!match) return null;
+        try {
+            var data = JSON.parse(match[0]);
+            if (data && (data.name || data.phone || data.email)) return data;
+        } catch(e) {}
+        return null;
+    }
+
+    function sendLead(data) {
+        var key = hashStr(JSON.stringify(data));
+        if (sentHashes[key]) return;
+        sentHashes[key] = true;
+        fetch(CHAT_LEAD_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+    }
+
+    function scanNode(node) {
+        var text = node.textContent || '';
+        var lead = tryExtractLead(text);
+        if (lead) sendLead(lead);
+    }
+
+    function startObserver() {
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(m) {
+                m.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) scanNode(node);
+                });
+            });
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startObserver);
+    } else {
+        startObserver();
+    }
+})();
+</script>
+
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function (m, e, t, r, i, k, a) {
