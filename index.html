@@ -93,7 +93,7 @@ setTimeout(function() {
     }
 
     function tryExtractLead(text) {
-        var match = text.match(/\{[\s\S]*?"name"[\s\S]*?\}/);
+        var match = text.match(/\{[^{}]*"name"[^{}]*\}/);
         if (!match) return null;
         try {
             var data = JSON.parse(match[0]);
@@ -110,31 +110,41 @@ setTimeout(function() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
-        });
+        }).catch(function(){});
     }
 
-    function scanNode(node) {
-        var text = node.textContent || '';
+    function getAllText() {
+        var texts = [];
+
+        // 1. Обычный DOM
+        texts.push(document.body.innerText || '');
+
+        // 2. Shadow DOM (обходим все shadow roots)
+        document.querySelectorAll('*').forEach(function(el) {
+            if (el.shadowRoot) {
+                texts.push(el.shadowRoot.textContent || '');
+            }
+        });
+
+        // 3. iframe (только same-origin — cross-origin недоступны)
+        document.querySelectorAll('iframe').forEach(function(iframe) {
+            try {
+                var doc = iframe.contentDocument || iframe.contentWindow.document;
+                if (doc) texts.push(doc.body.innerText || '');
+            } catch(e) {}
+        });
+
+        return texts.join(' ');
+    }
+
+    function scan() {
+        var text = getAllText();
         var lead = tryExtractLead(text);
         if (lead) sendLead(lead);
     }
 
-    function startObserver() {
-        var observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(m) {
-                m.addedNodes.forEach(function(node) {
-                    if (node.nodeType === 1) scanNode(node);
-                });
-            });
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', startObserver);
-    } else {
-        startObserver();
-    }
+    // Запускаем проверку каждые 2 секунды
+    setInterval(scan, 2000);
 })();
 </script>
 
