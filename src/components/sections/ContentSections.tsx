@@ -165,6 +165,98 @@ export default function ContentSections() {
             </h2>
           </div>
 
+          {/* HOT OFFER */}
+          <div className="mb-8 rounded-2xl p-8 md:p-10 relative overflow-hidden"
+            style={{ background: 'linear-gradient(135deg, #111e35 0%, #0d1a2e 100%)', border: '1px solid rgba(29,233,182,0.35)' }}>
+            <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 80% 0%, rgba(29,233,182,0.08) 0%, transparent 60%)' }} />
+            <div className="relative">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-widest"
+                style={{ background: 'rgba(255,80,30,0.12)', color: '#ff6b35', border: '1px solid rgba(255,80,30,0.3)', fontFamily: "'IBM Plex Mono', monospace" }}>
+                🔥 Горячее предложение
+              </div>
+
+              <div className="md:grid md:grid-cols-3 md:gap-10">
+                {/* Left: main info */}
+                <div className="md:col-span-2">
+                  <h3 className="text-2xl md:text-3xl font-black mb-3 leading-tight" style={{ color: 'var(--white)' }}>
+                    Сайт с AI-консультантом за 1 день
+                    <span className="align-super text-base" style={{ color: 'var(--teal)' }}>*</span>
+                  </h3>
+                  <p className="text-base mb-6" style={{ color: 'var(--graphite)' }}>
+                    Сайт, который продаёт за вас 24/7, без зарплаты и выходных.
+                  </p>
+
+                  <ul className="space-y-3 mb-6">
+                    {[
+                      'Отвечает на вопросы посетителей в реальном времени',
+                      'Собирает контакты и отправляет в Google Таблицу, CRM, Telegram-бота, Макс бота или на email — на ваш выбор',
+                      'Работает без перерывов и не требует обучения',
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-sm" style={{ color: 'var(--graphite)' }}>
+                        <span className="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style={{ background: 'rgba(29,233,182,0.15)', color: 'var(--teal)' }}>✓</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="rounded-xl p-4 mb-6" style={{ background: 'rgba(29,233,182,0.06)', border: '1px solid rgba(29,233,182,0.15)' }}>
+                    <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--teal)', fontFamily: "'IBM Plex Mono', monospace" }}>Живой пример</p>
+                    <p className="text-sm" style={{ color: 'var(--graphite)' }}>
+                      Посмотрите, как это работает прямо сейчас на нашем сайте — <a href="https://nl-ai.ru" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: 'var(--teal)' }}>nl-ai.ru</a>. Откройте чат в правом нижнем углу и задайте вопрос.
+                    </p>
+                  </div>
+
+                  <div className="grid sm:grid-cols-3 gap-3 mb-6">
+                    {[
+                      { icon: '⚡', text: 'Старт через 1 день' },
+                      { icon: '💰', text: 'Окупается с первой заявки' },
+                      { icon: '🧪', text: 'Тестируете без риска' },
+                    ].map((item) => (
+                      <div key={item.text} className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium" style={{ background: 'rgba(29,233,182,0.06)', color: 'var(--white)', border: '1px solid rgba(29,233,182,0.1)' }}>
+                        <span>{item.icon}</span>{item.text}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right: price + steps */}
+                <div className="flex flex-col gap-5">
+                  <div className="rounded-2xl p-6 text-center" style={{ background: 'rgba(29,233,182,0.08)', border: '1px solid rgba(29,233,182,0.25)' }}>
+                    <p className="text-xs uppercase tracking-widest mb-2" style={{ color: 'var(--teal)', fontFamily: "'IBM Plex Mono', monospace" }}>Стоимость под ключ</p>
+                    <div className="text-4xl font-black mb-1" style={{ color: 'var(--white)' }}>15 000 ₽</div>
+                    <p className="text-xs mb-4" style={{ color: 'var(--graphite)' }}>дизайн + тексты + AI-агент + интеграции</p>
+                    <a href="#contact"
+                      className="block w-full text-center font-bold text-sm py-3 rounded-xl transition-all"
+                      style={{ background: 'var(--teal)', color: 'var(--navy)' }}>
+                      Хочу такой сайт
+                    </a>
+                  </div>
+
+                  <div className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)' }}>
+                    <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--teal)', fontFamily: "'IBM Plex Mono', monospace" }}>Как мы работаем</p>
+                    <ol className="space-y-3">
+                      {[
+                        'Вы оставляете заявку — обсуждаем задачу и структуру',
+                        'Мы делаем сайт за 1 день и настраиваем AI-агента',
+                        'Вы запускаете сайт и получаете первые заявки',
+                      ].map((step, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm" style={{ color: 'var(--graphite)' }}>
+                          <span className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-black" style={{ background: 'var(--teal)', color: 'var(--navy)' }}>{i + 1}</span>
+                          {step}
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+
+                  <p className="text-xs" style={{ color: 'var(--graphite)', fontFamily: "'IBM Plex Mono', monospace" }}>
+                    *Фиксированная цена за лендинг под ключ. Многостраничный сайт — сроки и бюджет обсуждаем индивидуально.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {services.map((s) => (
               <div key={s.title}
