@@ -102,10 +102,25 @@ setTimeout(function() {
         return null;
     }
 
+    function getSentKeys() {
+        try { return JSON.parse(localStorage.getItem('_cl_sent') || '{}'); } catch(e) { return {}; }
+    }
+
+    function saveSentKey(key) {
+        try {
+            var keys = getSentKeys();
+            keys[key] = 1;
+            localStorage.setItem('_cl_sent', JSON.stringify(keys));
+        } catch(e) {}
+    }
+
     function sendLead(data) {
-        var key = hashStr(JSON.stringify(data));
+        var key = String(hashStr(JSON.stringify(data)));
         if (sentHashes[key]) return;
+        var stored = getSentKeys();
+        if (stored[key]) { sentHashes[key] = true; return; }
         sentHashes[key] = true;
+        saveSentKey(key);
         fetch(CHAT_LEAD_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
