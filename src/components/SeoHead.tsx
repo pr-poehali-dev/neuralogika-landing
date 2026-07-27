@@ -5,13 +5,15 @@ interface SeoHeadProps {
   description: string;
   path: string;
   image?: string;
+  jsonLd?: object | object[];
 }
 
 const DEFAULT_IMAGE = "https://cdn.poehali.dev/projects/610fe54d-520f-45a9-a3a6-51d41a25ad48/bucket/2452d262-46c1-426c-981d-cba515e6ed2b.png";
 const SITE_URL = "https://nl-ai.ru";
 
-export default function SeoHead({ title, description, path, image = DEFAULT_IMAGE }: SeoHeadProps) {
+export default function SeoHead({ title, description, path, image = DEFAULT_IMAGE, jsonLd }: SeoHeadProps) {
   const url = `${SITE_URL}${path}`;
+  const jsonLdList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
   return (
     <Helmet>
@@ -31,6 +33,12 @@ export default function SeoHead({ title, description, path, image = DEFAULT_IMAG
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
+
+      {jsonLdList.map((item, i) => (
+        <script key={i} type="application/ld+json">
+          {JSON.stringify(item)}
+        </script>
+      ))}
     </Helmet>
   );
 }
