@@ -1,45 +1,8 @@
+import { Link } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
+import { services } from '@/data/services';
 
 const TEAM_IMG = "https://cdn.poehali.dev/projects/610fe54d-520f-45a9-a3a6-51d41a25ad48/files/34588791-3fbc-4320-8808-391f1433cbd4.jpg";
-
-const services = [
-  {
-    icon: "Bot",
-    title: "AI-ассистенты и чат-боты",
-    desc: "Поддержка клиентов 24/7 без найма операторов. Бот отвечает на 80% типовых вопросов мгновенно.",
-    metric: "−60% нагрузки на поддержку",
-  },
-  {
-    icon: "TrendingUp",
-    title: "Анализ данных и прогнозирование",
-    desc: "Понимаем спрос заранее. Прогнозируем продажи с точностью до 92%, чтобы вы не закупали лишнего.",
-    metric: "До 92% точность прогноза",
-  },
-  {
-    icon: "FileText",
-    title: "Автоматизация документооборота",
-    desc: "Нейросети распознают сканы, заполняют карточки товаров и формируют отчёты вместо сотрудников.",
-    metric: "−40% времени на рутину",
-  },
-  {
-    icon: "Sparkles",
-    title: "Рекомендательные системы",
-    desc: "«Умные» рекомендации для интернет-магазинов, которые увеличивают средний чек покупателя.",
-    metric: "+25% к среднему чеку",
-  },
-  {
-    icon: "Code2",
-    title: "Кастомные решения",
-    desc: "Разрабатываем уникальные ИИ-инструменты под специфику вашего бизнеса — с нуля и под ключ.",
-    metric: "Индивидуальный подход",
-  },
-  {
-    icon: "MessageSquare",
-    title: "Экосистема мессенджера Max",
-    desc: "Разрабатываем умных ботов, мини-приложения и каналы для нового российского мессенджера Max. Переносим аудиторию и контент с других площадок, выстраиваем автоматизированные воронки продаж внутри мессенджера.",
-    metric: "Новая аудитория уже сейчас",
-  },
-];
 
 const cases = [
   {
@@ -268,13 +231,30 @@ export default function ContentSections() {
                 </div>
                 <h3 className="text-lg font-bold mb-3" style={{ color: 'var(--white)' }}>{s.title}</h3>
                 <p className="text-sm leading-relaxed flex-1" style={{ color: 'var(--graphite)' }}>{s.desc}</p>
-                <div className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full mt-5"
+                <div className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full mt-5 mb-4"
                   style={{ background: 'rgba(29,233,182,0.1)', color: 'var(--teal)', fontFamily: "'IBM Plex Mono', monospace", alignSelf: 'flex-start' }}>
                   <Icon name="TrendingUp" size={12} />
                   {s.metric}
                 </div>
+                <Link to={`/uslugi/${s.slug}`}
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors"
+                  style={{ color: 'var(--white)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--teal)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'var(--white)')}>
+                  Подробнее
+                  <Icon name="ArrowRight" size={14} />
+                </Link>
               </div>
             ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link to="/uslugi"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200"
+              style={{ border: '1px solid rgba(29,233,182,0.3)', color: 'var(--white)' }}>
+              Все услуги подробно
+              <Icon name="ArrowRight" size={16} />
+            </Link>
           </div>
         </div>
       </section>
