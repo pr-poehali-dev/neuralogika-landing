@@ -143,7 +143,7 @@ export default function ContentSections() {
                 {/* Left: main info */}
                 <div className="md:col-span-2">
                   <h3 className="text-2xl md:text-3xl font-black mb-3 leading-tight" style={{ color: 'var(--white)' }}>
-                    Сайт с AI-консультантом за 1 день
+                    <Link to="/uslugi/sozdanie-saitov" className="hover:underline">Сайт с AI-консультантом за 1 день</Link>
                     <span className="align-super text-base" style={{ color: 'var(--teal)' }}>*</span>
                   </h3>
                   <p className="text-base mb-6" style={{ color: 'var(--graphite)' }}>
@@ -194,6 +194,11 @@ export default function ContentSections() {
                       style={{ background: 'var(--teal)', color: 'var(--navy)' }}>
                       Хочу такой сайт
                     </a>
+                    <Link to="/uslugi/sozdanie-saitov"
+                      className="block w-full text-center font-semibold text-xs py-2.5 mt-3 rounded-xl transition-all"
+                      style={{ border: '1px solid rgba(29,233,182,0.25)', color: 'var(--teal)' }}>
+                      Подробнее об услуге
+                    </Link>
                   </div>
 
                   <div className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)' }}>
