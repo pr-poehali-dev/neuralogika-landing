@@ -54,8 +54,8 @@ export default function HeroSection() {
 
             <div className="grid grid-cols-3 gap-6 max-w-lg">
               {[
+                { num: "15", label: "направлений ИИ под задачи бизнеса" },
                 { num: "50+", label: "проектов внедрено" },
-                { num: "40%", label: "снижение издержек" },
                 { num: "3 нед.", label: "до первого результата" },
               ].map((s) => (
                 <div key={s.label}>
