@@ -232,7 +232,11 @@ export default function ContentSections() {
                 <div className="flex flex-col gap-5">
                   <div className="rounded-2xl p-6 text-center" style={{ background: 'rgba(29,233,182,0.08)', border: '1px solid rgba(29,233,182,0.25)' }}>
                     <p className="text-xs uppercase tracking-widest mb-2" style={{ color: 'var(--teal)', fontFamily: "'IBM Plex Mono', monospace" }}>Стоимость под ключ</p>
-                    <div className="text-4xl font-black mb-1" style={{ color: 'var(--white)' }}>15 000 ₽</div>
+                    <div className="inline-block text-xs font-bold px-3 py-1 rounded-full mb-2" style={{ background: 'rgba(255,80,30,0.12)', color: '#ff6b35', border: '1px solid rgba(255,80,30,0.3)' }}>Выгода 40%</div>
+                    <div className="flex items-baseline justify-center gap-2 mb-1">
+                      <span className="text-lg font-bold line-through" style={{ color: 'var(--graphite)' }}>25 000 ₽</span>
+                      <span className="text-4xl font-black" style={{ color: 'var(--white)' }}>15 000 ₽</span>
+                    </div>
                     <p className="text-xs mb-4" style={{ color: 'var(--graphite)' }}>дизайн + тексты + AI-агент + интеграции</p>
                     <a href="#contact"
                       className="block w-full text-center font-bold text-sm py-3 rounded-xl transition-all"
@@ -246,7 +250,7 @@ export default function ContentSections() {
                     </Link>
                   </div>
 
-                  <div className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)' }}>
+                  <div className="rounded-2xl p-5 mt-auto" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)' }}>
                     <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--teal)', fontFamily: "'IBM Plex Mono', monospace" }}>Как мы работаем</p>
                     <ol className="space-y-3">
                       {[
