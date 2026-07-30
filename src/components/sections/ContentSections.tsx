@@ -188,9 +188,9 @@ export default function ContentSections() {
                     </p>
                   </div>
 
-                  <div className="rounded-xl p-5 mb-6" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)' }}>
+                  <div className="rounded-xl p-5 mb-6 flex-1 flex flex-col justify-center" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)' }}>
                     <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--teal)', fontFamily: "'IBM Plex Mono', monospace" }}>Что входит в цену</p>
-                    <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
+                    <div className="grid sm:grid-cols-2 gap-x-6 gap-y-4">
                       {[
                         'Уникальный дизайн под ваш бренд',
                         'Продающие тексты для всех блоков',
@@ -198,6 +198,8 @@ export default function ContentSections() {
                         'Подключение заявок в CRM или Telegram',
                         'Адаптация под телефоны и планшеты',
                         'Публикация и подключение вашего домена',
+                        'SEO-настройка для поисковиков',
+                        'Инструкция по управлению сайтом',
                       ].map((item) => (
                         <div key={item} className="flex items-start gap-3 text-sm" style={{ color: 'var(--graphite)' }}>
                           <span className="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style={{ background: 'rgba(29,233,182,0.15)', color: 'var(--teal)' }}>✓</span>
@@ -207,7 +209,7 @@ export default function ContentSections() {
                     </div>
                   </div>
 
-                  <div className="grid sm:grid-cols-3 gap-3 mt-auto">
+                  <div className="grid sm:grid-cols-3 gap-3">
                     {[
                       { icon: '⚡', text: 'Старт через 1 день' },
                       { icon: '💰', text: 'Окупается с первой заявки' },
