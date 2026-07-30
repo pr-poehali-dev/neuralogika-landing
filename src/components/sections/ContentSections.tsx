@@ -207,14 +207,6 @@ export default function ContentSections() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3 rounded-xl p-4 mb-6" style={{ background: 'rgba(29,233,182,0.06)', border: '1px solid rgba(29,233,182,0.15)' }}>
-                    <span className="text-lg">🛡️</span>
-                    <div>
-                      <p className="text-sm font-bold" style={{ color: 'var(--white)' }}>Гарантия результата</p>
-                      <p className="text-sm" style={{ color: 'var(--graphite)' }}>Не понравится результат — доработаем бесплатно, пока вы не будете довольны.</p>
-                    </div>
-                  </div>
-
                   <div className="grid sm:grid-cols-3 gap-3 mt-auto">
                     {[
                       { icon: '⚡', text: 'Старт через 1 день' },
@@ -250,7 +242,15 @@ export default function ContentSections() {
                     </Link>
                   </div>
 
-                  <div className="rounded-2xl p-5 mt-auto" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)' }}>
+                  <div className="flex items-start gap-3 rounded-2xl p-5" style={{ background: 'rgba(29,233,182,0.06)', border: '1px solid rgba(29,233,182,0.15)' }}>
+                    <span className="text-lg">🛡️</span>
+                    <div>
+                      <p className="text-sm font-bold" style={{ color: 'var(--white)' }}>Гарантия результата</p>
+                      <p className="text-sm" style={{ color: 'var(--graphite)' }}>Не понравится результат — доработаем бесплатно, пока вы не будете довольны.</p>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)' }}>
                     <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--teal)', fontFamily: "'IBM Plex Mono', monospace" }}>Как мы работаем</p>
                     <ol className="space-y-3">
                       {[
@@ -266,7 +266,7 @@ export default function ContentSections() {
                     </ol>
                   </div>
 
-                  <p className="text-xs" style={{ color: 'var(--graphite)', fontFamily: "'IBM Plex Mono', monospace" }}>
+                  <p className="text-xs mt-auto" style={{ color: 'var(--graphite)', fontFamily: "'IBM Plex Mono', monospace" }}>
                     *Фиксированная цена за лендинг под ключ. Многостраничный сайт — сроки и бюджет обсуждаем индивидуально.
                   </p>
                 </div>
