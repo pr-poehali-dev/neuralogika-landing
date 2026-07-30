@@ -41,7 +41,7 @@ export default function ServicesList() {
           <div className="text-center mb-16">
             <div className="text-xs mb-4 tracking-widest uppercase" style={{ color: 'var(--teal)', fontFamily: "'IBM Plex Mono', monospace" }}>Услуги</div>
             <h1 className="text-3xl md:text-5xl font-black leading-tight mb-6" style={{ color: 'var(--white)' }}>
-              Внедрение ИИ для бизнеса
+              Что мы делаем
             </h1>
             <p className="text-base md:text-lg max-w-2xl mx-auto" style={{ color: 'var(--graphite)' }}>
               Разбираем задачу вашего бизнеса и подбираем решение, которое даёт измеримый результат —
