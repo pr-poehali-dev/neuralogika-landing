@@ -1,39 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link } from "@/lib/router-compat";
 import Icon from '@/components/ui/icon';
 import SiteHeader from '@/components/layout/SiteHeader';
 import SiteFooter from '@/components/layout/SiteFooter';
-import SeoHead from '@/components/SeoHead';
 import { services } from '@/data/services';
 
 export default function ServicesList() {
-  const itemListJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "itemListElement": services.map((s, i) => ({
-      "@type": "ListItem",
-      "position": i + 1,
-      "name": s.title,
-      "url": `https://nl-ai.ru/uslugi/${s.slug}`,
-    })),
-  };
-
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://nl-ai.ru/" },
-      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://nl-ai.ru/uslugi" },
-    ],
-  };
-
   return (
     <div className="min-h-screen" style={{ fontFamily: "'Golos Text', sans-serif", background: 'var(--navy)', color: 'var(--white)' }}>
-      <SeoHead
-        title="Услуги внедрения ИИ для бизнеса — НейроЛогика"
-        description="AI-чат-боты, анализ данных и прогнозирование, автоматизация документооборота, рекомендательные системы и кастомные ИИ-решения для бизнеса."
-        path="/uslugi"
-        jsonLd={[itemListJsonLd, breadcrumbJsonLd]}
-      />
       <SiteHeader />
 
       <section className="pt-40 pb-24 md:pb-32 grid-line-bg" style={{ background: 'var(--navy)' }}>

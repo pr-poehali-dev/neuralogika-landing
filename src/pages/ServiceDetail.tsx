@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, Link, Navigate } from "@/lib/router-compat";
 import Icon from '@/components/ui/icon';
 import SiteHeader from '@/components/layout/SiteHeader';
 import SiteFooter from '@/components/layout/SiteFooter';
-import SeoHead from '@/components/SeoHead';
 import { getServiceBySlug, services } from '@/data/services';
 
 const SEND_LEAD_URL = 'https://functions.poehali.dev/20209a8a-b986-41eb-8cd2-2e7f2f10f392';
@@ -45,47 +44,6 @@ export default function ServiceDetail() {
   }
 
   const otherServices = services.filter((s) => s.slug !== service.slug).slice(0, 3);
-
-  const serviceJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": service.title,
-    "description": service.seoDescription,
-    "url": `https://nl-ai.ru/uslugi/${service.slug}`,
-    "provider": {
-      "@type": "ProfessionalService",
-      "name": "НейроЛогика",
-      "url": "https://nl-ai.ru/",
-    },
-    "areaServed": {
-      "@type": "Country",
-      "name": "Россия",
-    },
-    "serviceType": service.title,
-  };
-
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://nl-ai.ru/" },
-      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://nl-ai.ru/uslugi" },
-      { "@type": "ListItem", "position": 3, "name": service.title, "item": `https://nl-ai.ru/uslugi/${service.slug}` },
-    ],
-  };
-
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": service.faq.map((item) => ({
-      "@type": "Question",
-      "name": item.q,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": item.a,
-      },
-    })),
-  };
 
   const formatPhone = (value: string) => {
     const digits = value.replace(/\D/g, '');
@@ -135,12 +93,6 @@ export default function ServiceDetail() {
 
   return (
     <div className="min-h-screen" style={{ fontFamily: "'Golos Text', sans-serif", background: 'var(--navy)', color: 'var(--white)' }}>
-      <SeoHead
-        title={service.seoTitle}
-        description={service.seoDescription}
-        path={`/uslugi/${service.slug}`}
-        jsonLd={[serviceJsonLd, breadcrumbJsonLd, faqJsonLd]}
-      />
       <SiteHeader />
 
       {/* HERO */}
