@@ -7,6 +7,7 @@ import {componentTagger} from "pp-tagger";
 // Серверная половина hmr-keepalive (клиент — src/platform/dev-hmr.ts,
 // подключается в src/routes/__root.tsx): после каждой рассылки и раз в 5-9 с
 // шлём состояние «boot:seq», чтобы превью переживало обрывы сокета.
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const hmrKeepalive = {
     name: 'hmr-ws-keepalive',
     apply: 'serve' as const,
@@ -32,6 +33,8 @@ const hmrKeepalive = {
         });
     },
 };
+
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 // https://tanstack.com/start/latest/docs/framework/react/guide/hosting
 export default defineConfig(({command, mode}) => ({
